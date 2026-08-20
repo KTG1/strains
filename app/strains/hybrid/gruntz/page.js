@@ -22,6 +22,23 @@ const facts = [
   ["Customer rating", "New arrival"],
 ];
 
+const growingFactors = [
+  ["Difficulty", "Moderate"],
+  ["Flowering time", "9–10 weeks"],
+  ["Yield", "Moderate to high with consistent canopy management"],
+  ["Ideal conditions", "Indoor or outdoor with steady airflow and environmental control"],
+  ["Temperature", "72–78°F day · 65–70°F night"],
+  ["Humidity", "40–50% RH in flower · 35–45% in late flower"],
+  ["pH", "Soil: 6.2–6.8 · Hydro: 5.8–6.1"],
+];
+
+const recommendations = [
+  ["G13 Strain", "$29.99", "Calm · Earthy"],
+  ["Candy Rain Strain", "$29.99", "Bright · Sweet"],
+  ["Alien Cookies Strain", "$29.99", "Balanced · Herbal"],
+  ["Purple Kush Strain", "$14.99", "Relaxed · Grape"],
+];
+
 export const metadata = {
   title: "Gruntz Strain | Strains",
   description: "Explore the Gruntz hybrid strain profile, effects, terpene profile, aroma, flavor, and growing characteristics.",
@@ -117,10 +134,39 @@ export default function GruntzProductPage() {
           </article>
         </section>
 
+        <nav className={styles.sectionNav} aria-label="Product information">
+          <a href="#details" className={styles.active}>Details</a><a href="#growing">Growing</a><a href="#faq">FAQs</a><a href="#similar">Similar</a><a href="#reviews">Reviews</a><a href="#disclaimer">Disclaimer</a>
+        </nav>
+
+        <section id="growing" className={styles.growing}>
+          <div id="details" className={styles.sectionIntro}>
+            <p className={styles.kicker}>Cultivation overview</p><h2>Gruntz strain growing factors</h2>
+            <p>Gruntz generally finishes in 9–10 weeks and responds best to stable airflow, canopy shaping, and careful late-flower humidity control. The values below are a practical example profile rather than batch-specific cultivation instructions.</p>
+          </div>
+          <div className={styles.tableWrap}><table><thead><tr><th>Gruntz growing factor</th><th>Description</th></tr></thead><tbody>{growingFactors.map(([factor, description]) => <tr key={factor}><td>{factor}</td><td>{description}</td></tr>)}</tbody></table></div>
+        </section>
+
+        <section id="faq" className={styles.faq}>
+          <p className={styles.kicker}>Quick answers</p><h2>Gruntz strain FAQs</h2>
+          <details><summary>What is the THC level of Gruntz Strain?</summary><p>This example profile uses a typical 20–24% THC range. Actual potency must be confirmed by the certificate of analysis for each batch.</p></details>
+          <details><summary>Is Gruntz indica-dominant or sativa?</summary><p>Gruntz is generally presented as a balanced hybrid, though expression may vary by phenotype and grower.</p></details>
+          <details><summary>What does Gruntz taste like?</summary><p>Its profile is commonly associated with berry, candy, citrus, and a soft earthy finish.</p></details>
+        </section>
+
+        <section className={styles.assurances} aria-label="Shopping assurances">
+          {[["⌂","Available locally"],["♧","Quality sourced"],["▦","Batch tested"],["✺","Profile documented"],["↻","Satisfaction support"]].map(([icon,label]) => <div key={label}><b>{icon}</b><span>{label}</span></div>)}
+        </section>
+
+        <section id="similar" className={styles.similar}>
+          <div className={styles.sectionHeading}><div><p className={styles.kicker}>Explore next</p><h2>Customers also viewed</h2></div><Link href="/">View all strains →</Link></div>
+          <div className={styles.productGrid}>{recommendations.map(([name, price, note], index) => <article className={styles.productCard} key={name}><div className={styles.thumb}><Image src={product.image} alt="" fill sizes="(max-width:560px) 80vw, 25vw" style={{filter:`hue-rotate(${index * 34}deg) saturate(${1 + index * .08})`}} /></div><p>{note}</p><h3>{name}</h3><div className={styles.miniRating}>★★★★★ <span>New</span></div><strong>{price}</strong><button type="button">View strain</button></article>)}</div>
+        </section>
+
         <section id="reviews" className={styles.reviewBlock}>
           <div><p className={styles.kicker}>Community notes</p><h2>Be the first to review Gruntz.</h2></div>
           <button type="button">Write a review</button>
         </section>
+        <p id="disclaimer" className={styles.legal}>For adults of legal age only. Product information is educational and does not constitute medical advice. Effects and cannabinoid levels vary by person and batch. Always follow local laws and the product label.</p>
       </div>
     </main>
   );

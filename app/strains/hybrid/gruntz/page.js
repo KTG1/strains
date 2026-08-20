@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./product.module.css";
 import StrainTabs from "./StrainTabs";
+import ProductInfoTabs from "./ProductInfoTabs";
 
 const product = {
   name: "Gruntz Strain",
@@ -22,13 +23,6 @@ const growingFactors = [
   ["Temperature", "72–78°F day · 65–70°F night"],
   ["Humidity", "40–50% RH in flower · 35–45% in late flower"],
   ["pH", "Soil: 6.2–6.8 · Hydro: 5.8–6.1"],
-];
-
-const recommendations = [
-  ["G13 Strain", "$29.99", "Calm · Earthy"],
-  ["Candy Rain Strain", "$29.99", "Bright · Sweet"],
-  ["Alien Cookies Strain", "$29.99", "Balanced · Herbal"],
-  ["Purple Kush Strain", "$14.99", "Relaxed · Grape"],
 ];
 
 export const metadata = {
@@ -75,21 +69,7 @@ export default function GruntzProductPage() {
           </div>
         </section>
 
-        <section id="faq" className={styles.faq}>
-          <p className={styles.kicker}>Quick answers</p><h2>Gruntz strain FAQs</h2>
-          <details><summary>What is the THC level of Gruntz Strain?</summary><p>This example profile uses a typical 20–24% THC range. Actual potency must be confirmed by the certificate of analysis for each batch.</p></details>
-          <details><summary>Is Gruntz indica-dominant or sativa?</summary><p>Gruntz is generally presented as a balanced hybrid, though expression may vary by phenotype and grower.</p></details>
-          <details><summary>What does Gruntz taste like?</summary><p>Its profile is commonly associated with berry, candy, citrus, and a soft earthy finish.</p></details>
-        </section>
-
-        <section className={styles.assurances} aria-label="Shopping assurances">
-          {[["⌂","Available locally"],["♧","Quality sourced"],["▦","Batch tested"],["✺","Profile documented"],["↻","Satisfaction support"]].map(([icon,label]) => <div key={label}><b>{icon}</b><span>{label}</span></div>)}
-        </section>
-
-        <section id="similar" className={styles.similar}>
-          <div className={styles.sectionHeading}><div><p className={styles.kicker}>Explore next</p><h2>Customers also viewed</h2></div><Link href="/">View all strains →</Link></div>
-          <div className={styles.productGrid}>{recommendations.map(([name, price, note], index) => <article className={styles.productCard} key={name}><div className={styles.thumb}><Image src={product.image} alt="" fill sizes="(max-width:560px) 80vw, 25vw" style={{filter:`hue-rotate(${index * 34}deg) saturate(${1 + index * .08})`}} /></div><p>{note}</p><h3>{name}</h3><div className={styles.miniRating}>★★★★★ <span>New</span></div><strong>{price}</strong><button type="button">View strain</button></article>)}</div>
-        </section>
+        <ProductInfoTabs />
 
         <section id="reviews" className={styles.reviewBlock}>
           <div><p className={styles.kicker}>Community notes</p><h2>Be the first to review Gruntz.</h2></div>

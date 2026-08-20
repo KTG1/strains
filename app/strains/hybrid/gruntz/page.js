@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./product.module.css";
+import StrainTabs from "./StrainTabs";
 
 const product = {
   name: "Gruntz Strain",
@@ -12,15 +13,6 @@ const product = {
   terpenes: ["Caryophyllene", "Limonene", "Linalool"],
   flavor: ["Berry", "Candy", "Earthy"],
 };
-
-const facts = [
-  ["THC level", product.thc],
-  ["Primary effect", "Balanced calm"],
-  ["Terpene lead", product.terpenes[0]],
-  ["Growing factor", "Moderate"],
-  ["Aroma & flavor", product.flavor.join(" · ")],
-  ["Customer rating", "New arrival"],
-];
 
 const growingFactors = [
   ["Difficulty", "Moderate"],
@@ -43,10 +35,6 @@ export const metadata = {
   title: "Gruntz Strain | Strains",
   description: "Explore the Gruntz hybrid strain profile, effects, terpene profile, aroma, flavor, and growing characteristics.",
 };
-
-function Icon({ children }) {
-  return <span className={styles.icon} aria-hidden="true">{children}</span>;
-}
 
 export default function GruntzProductPage() {
   return (
@@ -83,67 +71,8 @@ export default function GruntzProductPage() {
             </div>
             <p className={styles.disclaimer}>Availability and pricing vary by location.</p>
 
-            <div className={styles.facts}>
-              {facts.map(([label, value], index) => (
-                <a href={`#detail-${index}`} key={label}>
-                  <Icon>{["♨", "✦", "♧", "⌁", "◡", "☆"][index]}</Icon>
-                  <span><small>{label}</small><strong>{value}</strong></span>
-                </a>
-              ))}
-            </div>
+            <StrainTabs product={product} growingFactors={growingFactors} />
           </div>
-        </section>
-
-        <section className={styles.profile} aria-labelledby="profile-title">
-          <div>
-            <p className={styles.kicker}>The profile</p>
-            <h2 id="profile-title">Sweet up front.<br />Grounded underneath.</h2>
-          </div>
-          <p>Gruntz is commonly described as a hybrid cross associated with Gelato and Zkittlez lineage. Its character moves from bright berry and confectionery notes into a soft, earthy finish.</p>
-        </section>
-
-        <section className={styles.metricGrid}>
-          <article id="detail-0" className={styles.thcCard}>
-            <p className={styles.kicker}>Potency range</p>
-            <div className={styles.bigMetric}>{product.thc}</div>
-            <h2>Gruntz strain THC level</h2>
-            <p>This example profile places Gruntz in a moderate-to-high THC range. Potency varies by harvest, batch, and testing method.</p>
-            <div className={styles.meter}><span /></div>
-            <div className={styles.scale}><span>Mild</span><span>Moderate</span><span>Strong</span></div>
-          </article>
-
-          <article id="detail-1" className={styles.effectCard}>
-            <p className={styles.kicker}>Reported character</p>
-            <h2>Effect profile</h2>
-            <div className={styles.tags}>{product.effects.map(x => <span key={x}>{x}</span>)}</div>
-            <p>Often selected for a rounded experience that pairs an upbeat opening with a calmer, settled finish.</p>
-          </article>
-
-          <article id="detail-2">
-            <p className={styles.kicker}>Aromatic compounds</p>
-            <h2>Terpene profile</h2>
-            <ul className={styles.barList}>
-              {product.terpenes.map((name, i) => <li key={name}><span>{name}</span><i style={{"--bar": `${88 - i * 19}%`}} /></li>)}
-            </ul>
-          </article>
-
-          <article id="detail-4">
-            <p className={styles.kicker}>Tasting notes</p>
-            <h2>Aroma & flavor</h2>
-            <div className={styles.flavors}>{product.flavor.map((x, i) => <span key={x}><b>{["●", "◆", "✦"][i]}</b>{x}</span>)}</div>
-          </article>
-        </section>
-
-        <nav className={styles.sectionNav} aria-label="Product information">
-          <a href="#details" className={styles.active}>Details</a><a href="#growing">Growing</a><a href="#faq">FAQs</a><a href="#similar">Similar</a><a href="#reviews">Reviews</a><a href="#disclaimer">Disclaimer</a>
-        </nav>
-
-        <section id="growing" className={styles.growing}>
-          <div id="details" className={styles.sectionIntro}>
-            <p className={styles.kicker}>Cultivation overview</p><h2>Gruntz strain growing factors</h2>
-            <p>Gruntz generally finishes in 9–10 weeks and responds best to stable airflow, canopy shaping, and careful late-flower humidity control. The values below are a practical example profile rather than batch-specific cultivation instructions.</p>
-          </div>
-          <div className={styles.tableWrap}><table><thead><tr><th>Gruntz growing factor</th><th>Description</th></tr></thead><tbody>{growingFactors.map(([factor, description]) => <tr key={factor}><td>{factor}</td><td>{description}</td></tr>)}</tbody></table></div>
         </section>
 
         <section id="faq" className={styles.faq}>

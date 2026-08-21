@@ -3,6 +3,7 @@ import Link from "next/link";
 import styles from "./product.module.css";
 import StrainTabs from "./StrainTabs";
 import ProductInfoTabs from "./ProductInfoTabs";
+import SimilarStrains from "./SimilarStrains";
 import { getStrain } from "../../strainData";
 
 const product = {...getStrain("hybrid", "gruntz"), shortName: "Gruntz", lineage: "Gelato × Zkittlez", similar: ["Gelato", "Zkittlez", "Runtz"], summary: "A fruit-forward hybrid with a candy-sweet aroma, balanced character, and an easygoing finish.", flowering: "9–10 weeks"};
@@ -61,7 +62,8 @@ export default function GruntzProductPage() {
           </div>
         </section>
 
-            <ProductInfoTabs product={product} />
+        <ProductInfoTabs product={product} />
+        <SimilarStrains product={product} />
 
         <section id="reviews" className={styles.reviewBlock}>
           <div><p className={styles.kicker}>Community notes</p><h2>Be the first to review Gruntz.</h2></div>

@@ -3,17 +3,9 @@ import Link from "next/link";
 import styles from "./product.module.css";
 import StrainTabs from "./StrainTabs";
 import ProductInfoTabs from "./ProductInfoTabs";
+import { getStrain } from "../../strainData";
 
-const product = {
-  name: "Gruntz Strain",
-  type: "Hybrid",
-  price: "$14.99",
-  image: "/products/gruntz.jpg",
-  thc: "20–24%",
-  effects: ["Relaxed", "Happy", "Creative"],
-  terpenes: ["Caryophyllene", "Limonene", "Linalool"],
-  flavor: ["Berry", "Candy", "Earthy"],
-};
+const product = {...getStrain("hybrid", "gruntz"), shortName: "Gruntz", lineage: "Gelato × Zkittlez", similar: ["Gelato", "Zkittlez", "Runtz"], summary: "A fruit-forward hybrid with a candy-sweet aroma, balanced character, and an easygoing finish.", flowering: "9–10 weeks"};
 
 const growingFactors = [
   ["Difficulty", "Moderate"],
@@ -69,7 +61,7 @@ export default function GruntzProductPage() {
           </div>
         </section>
 
-        <ProductInfoTabs />
+            <ProductInfoTabs product={product} />
 
         <section id="reviews" className={styles.reviewBlock}>
           <div><p className={styles.kicker}>Community notes</p><h2>Be the first to review Gruntz.</h2></div>

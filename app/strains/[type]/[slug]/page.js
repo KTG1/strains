@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import styles from "../../hybrid/gruntz/product.module.css";
 import StrainTabs from "../../hybrid/gruntz/StrainTabs";
 import ProductInfoTabs from "../../hybrid/gruntz/ProductInfoTabs";
+import SimilarStrains from "../../hybrid/gruntz/SimilarStrains";
 import { getStrain, strains } from "../../strainData";
 
 export function generateStaticParams() {
@@ -29,6 +30,7 @@ export default async function StrainProductPage({params}) {
       <div className={styles.summary}><p className={styles.kicker}>{typeLabel} flower</p><h1>{product.name}</h1><div className={styles.rating}><span aria-label="5 out of 5 stars">★★★★★</span><a href="#reviews">0 reviews</a></div><p className={styles.price}>{product.price}</p><p className={styles.lede}>{product.summary}</p><div className={styles.buyRow}><label className={styles.selectLabel}>Size<select defaultValue="1g" aria-label="Select size"><option value="1g">1 gram</option><option value="3.5g">3.5 grams</option></select></label><button type="button">Find in store</button></div><p className={styles.disclaimer}>Availability and pricing vary by location.</p><StrainTabs product={product} growingFactors={growingFactors}/></div>
     </section>
     <ProductInfoTabs product={product}/>
+    <SimilarStrains product={product}/>
     <section id="reviews" className={styles.reviewBlock}><div><p className={styles.kicker}>Community notes</p><h2>Be the first to review {product.shortName}.</h2></div><button type="button">Write a review</button></section>
     <p className={styles.legal}>For adults of legal age only. Product information is educational and does not constitute medical advice. Effects and cannabinoid levels vary by person and batch. Always follow local laws and the product label.</p>
   </div></main>;

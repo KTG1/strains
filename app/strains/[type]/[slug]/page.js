@@ -21,7 +21,7 @@ export default async function StrainProductPage({params}) {
   const {type,slug}=await params;
   const product=getStrain(type,slug);
   if(!product) notFound();
-  const typeLabel=product.type[0].toUpperCase()+product.type.slice(1);
+  const typeLabel=product.classification||`${product.type[0].toUpperCase()}${product.type.slice(1)}`;
   const growingFactors=[["Difficulty","Moderate"],["Flowering time",product.flowering],["Yield","Moderate to high with consistent canopy management"],["Ideal conditions","Indoor or outdoor with steady airflow and environmental control"],["Temperature","72–78°F day · 65–70°F night"],["Humidity","40–50% RH in flower · 35–45% in late flower"],["pH","Soil: 6.2–6.8 · Hydro: 5.8–6.1"]];
   return <main className={styles.page}><div className={styles.shell}>
     <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">⌂</Link><span>/</span><Link href="/">Flower</Link><span>/</span><Link href="/">{typeLabel}</Link><span>/</span><strong>{product.name}</strong></nav>

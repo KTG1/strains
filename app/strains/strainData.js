@@ -1,3 +1,5 @@
+import { searchDemandStrains } from "./searchDemandData";
+
 const raw = [
   ["Gruntz","hybrid","20–24%",["Relaxed","Happy","Creative"],["Caryophyllene","Limonene","Linalool"],["Berry","Candy","Earthy"],"Gelato × Zkittlez",["Gelato","Zkittlez","Runtz"],"A fruit-forward hybrid with a candy-sweet aroma, balanced character, and an easygoing finish.","9–10 weeks"],
   ["Blue Dream","hybrid","17–24%",["Uplifted","Creative","Relaxed"],["Myrcene","Pinene","Caryophyllene"],["Blueberry","Herbal","Sweet"],"Blueberry × Haze",["Super Silver Haze","Strawberry Cough","Pineapple Express"],"A berry-led hybrid with a bright herbal finish and an easygoing character.","9–10 weeks"],
@@ -41,5 +43,18 @@ const raw = [
 ];
 
 export const slugify=(name)=>name.toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
-export const strains=raw.map(([name,type,thc,effects,terpenes,flavor,lineage,similar,summary,flowering])=>({name:`${name} Strain`,shortName:name,type,slug:slugify(name),thc,effects,terpenes,flavor,lineage,similar,summary,flowering,price:"$14.99",image:"/products/gruntz.jpg"}));
+const curatedStrains=raw.map(([name,type,thc,effects,terpenes,flavor,lineage,similar,summary,flowering])=>({name:`${name} Strain`,shortName:name,type,classification:type,slug:slugify(name),thc,effects,terpenes,flavor,lineage,similar,summary,flowering,price:"$14.99",image:"/products/gruntz.jpg",verifiedProfile:true}));
+
+const flavorThemes=[["Citrus","Sweet","Herbal"],["Berry","Cream","Earthy"],["Fruit","Spice","Pine"],["Floral","Sweet","Woody"],["Dessert","Vanilla","Earthy"],["Tropical","Citrus","Herbal"],["Fuel","Pepper","Earthy"],["Candy","Fruit","Cream"]];
+const effectsThemes=[["Batch-specific","COA guided","Adult use"],["Profile varies","Producer documented","Batch specific"],["Cultivar dependent","Lab documented","Adult use"],["Phenotype dependent","COA guided","Profile varies"]];
+const hashName=(name)=>[...name].reduce((total,char)=>total+char.charCodeAt(0),0);
+const generatedStrains=searchDemandStrains.map((item,index)=>{
+  const flavor=flavorThemes[hashName(item.shortName)%flavorThemes.length];
+  const effects=effectsThemes[hashName(item.shortName)%effectsThemes.length];
+  const previous=searchDemandStrains[(index+searchDemandStrains.length-1)%searchDemandStrains.length].shortName;
+  const next=searchDemandStrains[(index+1)%searchDemandStrains.length].shortName;
+  return {name:`${item.shortName} Strain`,shortName:item.shortName,type:"hybrid",classification:"Varies by breeder",slug:slugify(item.shortName),thc:"Batch dependent",effects,terpenes:["Batch-specific COA"],flavor,lineage:"Confirm with breeder or producer",similar:[previous,next,"Search-demand comparison"],summary:`A demand-led ${item.shortName} template for organizing batch-specific product, aroma, effect, lineage, and availability information.`,flowering:"Breeder dependent",price:"Check availability",image:"/products/gruntz.jpg",verifiedProfile:false,searchDemand:item.volume,searchIntent:item.intent,keywordDifficulty:item.keywordDifficulty,cpc:item.cpc,sourceRow:item.sourceRow};
+});
+
+export const strains=[...curatedStrains,...generatedStrains];
 export const getStrain=(type,slug)=>strains.find((s)=>s.type===type&&s.slug===slug);
